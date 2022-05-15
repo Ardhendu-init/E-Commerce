@@ -32,6 +32,7 @@ const Arrow = styled.div`
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
+  transition: all 1.5s ease;
   transform: translateX(${(props) => props.slideIdx * -100}vw);
 `;
 const Slide = styled.div`
@@ -62,10 +63,26 @@ const Desc = styled.p`
   letter-spacing: 3px;
 `;
 const Button = styled.button`
-  padding: 10px;
-  font-size: 20px;
+  padding: 1.1rem;
+  font-size: 1.25rem;
   background-color: transparent;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 2.6rem;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
   cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background-color: #2ee59d;
+    box-shadow: #${(props) => props.bg};
+    color: #fff;
+    transform: translateY(-7px);
+  }
 `;
 
 const Slider = () => {
@@ -92,7 +109,7 @@ const Slider = () => {
             <InfoConatiner>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>SHOP NOW</Button>
+              <Button bg={item.bg}>SHOP NOW</Button>
             </InfoConatiner>
           </Slide>
         ))}
