@@ -6,9 +6,11 @@ import MailIcon from "@mui/icons-material/Mail";
 import RoomIcon from "@mui/icons-material/Room";
 import PhoneIcon from "@mui/icons-material/Phone";
 import styled from "styled-components";
+import mobile from "../responsive";
 
 const Container = styled.div`
   display: flex;
+  ${mobile({ flexDirection: "column" })}
 `;
 const Left = styled.div`
   flex: 1;
@@ -55,6 +57,8 @@ const ListItem = styled.li`
 const Right = styled.div`
   flex: 1;
   padding: 1.25rem;
+
+  ${mobile({ backgroundColor: "#fff8f8" })}
 `;
 
 const ContactItem = styled.div`

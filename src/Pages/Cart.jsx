@@ -3,10 +3,12 @@ import Announcement from "../Components/Announcement";
 import Footer from "../Components/Footer";
 import styled from "styled-components";
 import { Add, Remove } from "@material-ui/icons";
+import mobile from "../responsive";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 20px;
+  ${mobile({ padding: "10px" })}
 `;
 const Title = styled.h1`
   font-weight: 300;
@@ -26,8 +28,11 @@ const TopButton = styled.button`
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
+  ${mobile({ padding: "5px" })}
 `;
-const TopTexts = styled.div``;
+const TopTexts = styled.div`
+  ${mobile({ display: "flex" })}
+`;
 const TopText = styled.span`
   cursor: pointer;
   text-decoration: underline;
@@ -36,6 +41,7 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
+  ${mobile({ flexDirection: "column" })}
 `;
 const Info = styled.div`
   flex: 3;
@@ -44,6 +50,7 @@ const Info = styled.div`
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
+  ${mobile({ flexDirection: "column" })}
 `;
 const ProductDetail = styled.div`
   flex: 2;
@@ -76,6 +83,7 @@ const PriceDetail = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  ${mobile({ display: "flex" })}
 `;
 const ProductAmountContainer = styled.div`
   display: flex;
@@ -85,10 +93,12 @@ const ProductAmountContainer = styled.div`
 const ProductAmount = styled.div`
   font-size: 24px;
   margin: 5px;
+  ${mobile({ margin: "5px 15px" })}
 `;
 const ProductPrice = styled.div`
   font-size: 30px;
   font-weight: 200;
+  ${mobile({ marginBottom: "20px" })}
 `;
 const Hr = styled.hr`
   background-color: #${(props) => (props.place === "summary" ? "000" : "eee")};
