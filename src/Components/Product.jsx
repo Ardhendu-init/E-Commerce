@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -62,17 +63,19 @@ const Icon = styled.div`
   }
 `;
 
-const Product = ({ items }) => {
+const Product = ({ item }) => {
   return (
     <Container>
       <Circle />
-      <Image src={items.img} />
+      <Image src={item.img} />
       <Info>
         <Icon>
           <AddShoppingCartOutlinedIcon />
         </Icon>
         <Icon>
-          <SearchOutlinedIcon />
+          <Link to={`/product/${item._id}`}>
+            <SearchOutlinedIcon />
+          </Link>
         </Icon>
         <Icon>
           <FavoriteBorderOutlinedIcon />
