@@ -27,16 +27,19 @@ export const categories = [
     id: 1,
     img: "https://images.pexels.com/photos/965324/pexels-photo-965324.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "SUNGLASS LOVE",
+    cat: "sunglass",
   },
   {
     id: 2,
     img: "https://images.unsplash.com/photo-1536766820879-059fec98ec0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
     title: "PARTY SHIRT!",
+    cat: "jeans",
   },
   {
     id: 3,
     img: "https://images.pexels.com/photos/2737004/pexels-photo-2737004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "JEANS JACKETS",
+    cat: "jackets",
   },
 ];
 export const popularProducts = [
