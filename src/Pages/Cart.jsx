@@ -4,10 +4,12 @@ import Footer from "../Components/Footer";
 import styled from "styled-components";
 import { Add, Remove } from "@material-ui/icons";
 import mobile from "../responsive";
+import { useSelector } from "react-redux";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 20px;
+  background-color: #fefbe7;
   ${mobile({ padding: "10px" })}
 `;
 const Title = styled.h1`
@@ -40,6 +42,7 @@ const TopText = styled.span`
 `;
 const Bottom = styled.div`
   display: flex;
+
   justify-content: space-between;
   ${mobile({ flexDirection: "column" })}
 `;
@@ -101,7 +104,7 @@ const ProductPrice = styled.div`
   ${mobile({ marginBottom: "20px" })}
 `;
 const Hr = styled.hr`
-  background-color: #${(props) => (props.place === "summary" ? "000" : "eee")};
+  background-color: black;
   border: none;
   height: 1px;
 `;
@@ -139,6 +142,8 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+
   return (
     <Container>
       <Navbar />
@@ -148,7 +153,7 @@ const Cart = () => {
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
+            <TopText>Shopping Bag({cart.products.length})</TopText>
             <TopText>Your Wishlist(1)</TopText>
           </TopTexts>
 
@@ -156,76 +161,65 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> JESSIE THUNDER SHOES
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size:</b> 37.5
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>1</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>&#8377; 400</ProductPrice>
-              </PriceDetail>
-            </Product>
-            <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> HAKURA T-SHIRT
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
-                  <ProductColor color="gray" />
-                  <ProductSize>
-                    <b>Size:</b> M
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>1</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>&#8377; 200</ProductPrice>
-              </PriceDetail>
-            </Product>
+            {cart.products.map((item) => (
+              <Product key={item._id}>
+                <ProductDetail>
+                  <Image src={item.img} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b> {item.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b> {item._id}
+                    </ProductId>
+                    <ProductColor color={item.color ? item.color : "Black"} />
+                    <ProductSize>
+                      <b>Size:</b> {item.size ? item.size : "M"}
+                    </ProductSize>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <Add />
+                    <ProductAmount>{item.quantity}</ProductAmount>
+                    <Remove />
+                  </ProductAmountContainer>
+                  <ProductPrice>
+                    &#8377; {item.price * item.quantity}
+                  </ProductPrice>
+                </PriceDetail>
+              </Product>
+            ))}
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>&#8377; 600</SummaryItemPrice>
+              <SummaryItemPrice>&#8377; {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>&#8377; 200</SummaryItemPrice>
+              <SummaryItemPrice>
+                &#8377; {cart.total > 500 ? 0 : 200}
+              </SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>&#8377; -100</SummaryItemPrice>
+              <SummaryItemPrice>
+                &#8377; {cart.total > 500 ? 0 : -50}
+              </SummaryItemPrice>
             </SummaryItem>
-            <Hr place="summary" />
+            <Hr />
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>&#8377; 700</SummaryItemPrice>
+              <SummaryItemPrice>
+                &#8377;
+                {cart.total > 0
+                  ? cart.total > 500
+                    ? cart.total
+                    : cart.total + 150
+                  : 0}{" "}
+              </SummaryItemPrice>
             </SummaryItem>
             <Button>CHECKOUT NOW</Button>
           </Summary>

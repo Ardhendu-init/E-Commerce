@@ -19,8 +19,8 @@ const Products = ({ cat, filters, sort }) => {
       try {
         const res = await axios.get(
           cat
-            ? `http://localhost:3000/api/products?category=${cat}`
-            : "http://localhost:3000/api/products"
+            ? `https://stark-scrubland-62059.herokuapp.com/api/products?category=${cat}`
+            : "https://stark-scrubland-62059.herokuapp.com/api/products"
         );
         setProducts(res.data);
         // console.log(res);
@@ -58,8 +58,8 @@ const Products = ({ cat, filters, sort }) => {
   return (
     <Container>
       {cat
-        ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
-        : products.map((item) => <Product item={item} key={item.id} />)}
+        ? filteredProducts.map((item) => <Product item={item} key={item._id} />)
+        : products.map((item) => <Product item={item} key={item._id} />)}
     </Container>
   );
 };
