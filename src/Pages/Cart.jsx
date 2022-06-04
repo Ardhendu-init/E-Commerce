@@ -221,6 +221,7 @@ const Cart = () => {
                   : 0}{" "}
               </SummaryItemPrice>
             </SummaryItem>
+
             <Button>CHECKOUT NOW</Button>
           </Summary>
         </Bottom>
