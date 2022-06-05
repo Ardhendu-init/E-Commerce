@@ -76,7 +76,9 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Fashnest.</Logo>
+          <Link to="/">
+            <Logo>Fashnest.</Logo>
+          </Link>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
