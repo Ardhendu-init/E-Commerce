@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Add, Remove } from "@material-ui/icons";
 import mobile from "../responsive";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -151,7 +152,10 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <Link to="/">
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </Link>
+
           <TopTexts>
             <TopText>Shopping Bag({cart.products.length})</TopText>
             <TopText>Your Wishlist(1)</TopText>
