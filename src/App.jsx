@@ -12,9 +12,10 @@ import Product from "./Pages/Product";
 import ProductList from "./Pages/ProductList";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import { useSelector } from "react-redux";
 
 const App = () => {
-  const user = true;
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <Router>
       <Routes>

@@ -5,6 +5,8 @@ import Badge from "@mui/material/Badge";
 import mobile from "../responsive";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/userRedux";
 const Container = styled.div`
   height: 60px;
   ${mobile({ height: "50px" })}
@@ -46,6 +48,7 @@ const Center = styled.div`
 const Logo = styled.h1`
   font-weight: bold;
   ${mobile({ fontSize: "24px" })}
+  color: #712B75;
 `;
 const Right = styled.div`
   flex: 1;
@@ -60,10 +63,25 @@ const MenuItem = styled.div`
   margin-left: 25px;
   cursor: pointer;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  color: black;
+`;
+const UserName = styled.div`
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 25px;
+  font-style: oblique;
+  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  color: black;
 `;
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+
+  const handleLogout = (e) => {
+    dispatch(logout());
+  };
 
   return (
     <Container>
@@ -76,13 +94,25 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Link to="/">
+          <Link to="/" style={{ textDecoration: "none" }}>
             <Logo>Fashnest.</Logo>
           </Link>
         </Center>
+
         <Right>
+          {user && <UserName>Hello ,{user.username}</UserName>}
+
           <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          {user ? (
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <MenuItem onClick={handleLogout}>SIGN OUT</MenuItem>
+            </Link>
+          ) : (
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <MenuItem>SIGN IN</MenuItem>
+            </Link>
+          )}
+
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
