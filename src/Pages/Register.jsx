@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import mobile from "../responsive";
-
+import { useState } from "react";
+import { publicRequest } from "../requestMethod";
+// import { Navigate } from "react-router-dom";
+import login from "../redux/apiCalls";
+import { useDispatch } from "react-redux";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -52,23 +56,81 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
 `;
+const Error = styled.span`
+  color: red;
+  font-size: 16px;
+`;
 const Register = () => {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await publicRequest.post("/api/auth/register", {
+        username,
+        email,
+        password,
+        confirmPassword,
+        lastname,
+        firstname,
+      });
+      console.log(res.data);
+      login(dispatch, { username, password });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+        <Form onSubmit={handleSubmit}>
+          <Input
+            placeholder="firstname"
+            onChange={(e) => setFirstname(e.target.value)}
+          />
+          <Input
+            placeholder="lastname"
+            onChange={(e) => setLastname(e.target.value)}
+          />
+          <Input
+            placeholder="username"
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <Input
+            placeholder="email"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <Input
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <Input
+            placeholder="confirm password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
+
           <Button>CREATE</Button>
+          {password !== confirmPassword && (
+            <Error>Password Do not matched with Confirm Password...</Error>
+          )}
         </Form>
       </Wrapper>
     </Container>
