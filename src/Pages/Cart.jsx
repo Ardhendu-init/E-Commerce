@@ -4,9 +4,10 @@ import Footer from "../Components/Footer";
 import styled from "styled-components";
 import { Add, Remove } from "@material-ui/icons";
 import mobile from "../responsive";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
+// import { useState } from "react";
+import { updateProduct } from "../redux/cartRedux";
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 20px;
@@ -144,6 +145,11 @@ const Button = styled.button`
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const handleClick = (id, type) => {
+    dispatch(updateProduct({ id, type }));
+  };
 
   return (
     <Container>
@@ -184,9 +190,9 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
+                    <Add onClick={() => handleClick(item._id, "inc")} />
                     <ProductAmount>{item.quantity}</ProductAmount>
-                    <Remove />
+                    <Remove onClick={() => handleClick(item._id, "dec")} />
                   </ProductAmountContainer>
                   <ProductPrice>
                     &#8377; {item.price * item.quantity}
