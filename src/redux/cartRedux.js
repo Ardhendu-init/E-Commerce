@@ -26,6 +26,7 @@ const cartSlice = createSlice({
       }
     },
     updateProduct: (state, action) => {
+      // eslint-disable-next-line array-callback-return
       state.products.map((item) => {
         if (item._id === action.payload.id) {
           if (action.payload.type === "inc") {
