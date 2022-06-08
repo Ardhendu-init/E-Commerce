@@ -67,7 +67,7 @@ const MenuItem = styled.div`
 `;
 const UserName = styled.div`
   font-size: 20px;
-  cursor: pointer;
+
   margin-left: 25px;
   font-style: oblique;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
@@ -100,9 +100,14 @@ const Navbar = () => {
         </Center>
 
         <Right>
-          {user && <UserName>Hello ,{user.username}</UserName>}
+          {user ? (
+            <UserName>Hello ,{user.username}</UserName>
+          ) : (
+            <Link to="/register" style={{ textDecoration: "none" }}>
+              <MenuItem>REGISTER</MenuItem>
+            </Link>
+          )}
 
-          <MenuItem>REGISTER</MenuItem>
           {user ? (
             <Link to="/" style={{ textDecoration: "none" }}>
               <MenuItem onClick={handleLogout}>SIGN OUT</MenuItem>
