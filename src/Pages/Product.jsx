@@ -149,10 +149,11 @@ const Product = () => {
     getProduct();
   }, [id]);
 
-  const handleClick = () => {
+  const handleClick = (id) => {
     dispatch(
       addProduct({
         ...product,
+        id,
         quantity,
         color,
         size,
@@ -194,7 +195,9 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
+            <Button onClick={() => handleClick(product._id)}>
+              ADD TO CART
+            </Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
